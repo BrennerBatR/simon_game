@@ -35,8 +35,8 @@ Start:
 	clrf	ANSEL		; configura todas portas e pinos como digital I/0
 	
 Main:
-	call 	RotinaInicializacao
-	end
+	call RotinaInicializacao
+	goto Main
 	
 RotinaInicializacao:
 	bcf		STATUS,RP1	
@@ -45,7 +45,7 @@ RotinaInicializacao:
 	movwf	PORTA		; seta os pinos RA0-RA3 (acende os leds)
 	call 	Delay_1s	; call chama uma função com RETORNO
 	
-	clrf	led_cont	; led_cnt = 0
+	clrf	led_cnt	; led_cnt = 0
 	
 LedCountLoop:
 	;		PORTA	
@@ -55,7 +55,7 @@ LedCountLoop:
 	;11-> 	00001000
 	clrf	PORTA		; seta 0 para todas saidas (apaga os leds)
 	
-	movlw	.0
+	movlw	.0			; colocando 0 no work, decimal a gente coloca '.' e o numero	
 	subwf	led_cnt, W	; subwf -> substitui w de f onde f é ledcnt e o resultado ficara no mesmo registrador de entrada (led_cnt) e w = 0
 	btfsc	STATUS, Z	; se z=0 pula a proxima linha (z é se a subtração deu 0 ou nao)
 	bsf		PORTA,RA0	; acendi o led 0
@@ -87,7 +87,14 @@ LedCountLoop:
 	return 	
 				
 Delay_1s					
+	nop
+	return
 	
+Delay_200ms
+	nop
+	return 
+	
+	end	
 
 
 	
