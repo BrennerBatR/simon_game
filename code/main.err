@@ -1,7 +1,0 @@
-Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 2 : Found directive in column 1. (list)
-Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 4 : Found directive in column 1. (cblock)
-Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 6 : Found directive in column 1. (ENDC)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 12 : Found label after column 1. (restfile)
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 33 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Error[113]   C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 36 : Symbol not previously defined (RotinaInicializacao)
