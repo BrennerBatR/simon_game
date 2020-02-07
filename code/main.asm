@@ -1,10 +1,12 @@
 #include <p16f887.inc>
 list p=16f887
 
-cblock 0x20
-led_cnt
-endc
-
+	cblock 0x20
+		led_cnt
+		cnt_1
+		cnt_2
+	endc
+	#define		teste	PORTA,RA0
 	org		0x00		; reset vector
 	goto	Start
 	
@@ -35,10 +37,10 @@ Start:
 	clrf	ANSEL		; configura todas portas e pinos como digital I/0
 	
 Main:
-	call RotinaInicializacao
-	goto Main
+	call 	RotinaInicializacao
+	goto 	Main
 	
-RotinaInicializacao:
+RotinaInicializacao: 
 	bcf		STATUS,RP1	
 	bcf		STATUS,RP0	; os dois comandos acima resetam os bits seletores de banco, ou seja fomos para 00(bank0)
 	movlw	0x0F		; seleciona os pinos RA0-RA3 (1111)
@@ -86,13 +88,42 @@ LedCountLoop:
 	clrf	PORTA		;se for 4 executa aqui (ja fez toda rotina), apaga todos leds
 	return 	
 				
-Delay_1s					
-	nop
+Delay_1s:					
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
 	return
 	
-Delay_200ms
+Delay_1ms:
+	movlw	.248 
+	movwf	cnt_1
+
+Delay1:
 	nop
+	decfsz	cnt_1,	F	;decrementando cnt_1 e F significa q salvou no proprio registrador de entrada (cnt_1)	
+	goto	Delay1
 	return 
+	
+Delay_200ms:			;aqui eu chamo o delay de 1ms 200 vezes
+	movlw	.200
+	movwf	cnt_2
+
+Delay2:
+	call	Delay_1ms
+	decfsz	cnt_2,F		;se chegar a zero pula a proxima linha
+	goto	Delay2
+	return
+	
+Delay_10us:				;aqui gastamos 6 nops, cada um gasta 1us , o retorno 2us e o call do rdelay gastou 2us totalizando 10 us
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	return
 	
 	end	
 

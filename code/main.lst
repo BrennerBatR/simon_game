@@ -1,4 +1,4 @@
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  1
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -17,121 +17,152 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Warning[205]: Found directive in column 1. (list)
                       00002 list p=16f887
                       00003 
-Warning[205]: Found directive in column 1. (cblock)
-                      00004 cblock 0x20
-  00000020            00005 led_cnt
-Warning[205]: Found directive in column 1. (ENDC)
-                      00006 endc
-                      00007 
-                      00008         org             0x00            ; reset vector
-0000   2???           00009         goto    Start
-                      00010         
-                      00011         org             0x04            ; interrupt vector 
+                      00004         cblock 0x20
+  00000020            00005                 led_cnt
+  00000021            00006                 cnt_1
+  00000022            00007                 cnt_2
+                      00008         endc
+                      00009         #define         teste   PORTA,RA0
+                      00010         org             0x00            ; reset vector
+0000   2???           00011         goto    Start
+                      00012         
+                      00013         org             0x04            ; interrupt vector 
 Warning[207]: Found label after column 1. (restfile)
-0004                  00012         restfile
-                      00013         
-0004                  00014 Start:
-                      00015         ;-------- I/0 config --------
-                      00016         ;vamos configurar o ra0, ra1 ... para saida digital
-                      00017         ;para mudar de banco uso o registrador status
-                      00018         ;tris -> fala se os pinos sao saidas ou entradas
-                      00019         ;mvlw -> 
-                      00020         ;bsf altera seta o bit do registrador 1
-                      00021         ;bcf reseta o bit do registrador
-                      00022         ;f -> indica um fileeregister (alteram o conteudo de um registrador da memoria ram)
-                      00023         ; 1 entrada analogica e 0 para digital
-                      00024         ;bancos -> 00=banck0  01=banck1 etc
-                      00025         ;PORT: seta o nivel alto ou baixo na porta, 1 alto e 0 baixo
-                      00026         ;rlf -> rotaciona os bits para direita
-                      00027         ;lrf -> rotaciona para esquerda
-                      00028         
-                      00029 
-0004   1683           00030         bsf             STATUS,RP0  ; seleciona o banco 1 RP0 (pag 31 doc)(ficou 01, pois setou o segund
+0004                  00014         restfile
+                      00015         
+0004                  00016 Start:
+                      00017         ;-------- I/0 config --------
+                      00018         ;vamos configurar o ra0, ra1 ... para saida digital
+                      00019         ;para mudar de banco uso o registrador status
+                      00020         ;tris -> fala se os pinos sao saidas ou entradas
+                      00021         ;mvlw -> 
+                      00022         ;bsf altera seta o bit do registrador 1
+                      00023         ;bcf reseta o bit do registrador
+                      00024         ;f -> indica um fileeregister (alteram o conteudo de um registrador da memoria ram)
+                      00025         ; 1 entrada analogica e 0 para digital
+                      00026         ;bancos -> 00=banck0  01=banck1 etc
+                      00027         ;PORT: seta o nivel alto ou baixo na porta, 1 alto e 0 baixo
+                      00028         ;rlf -> rotaciona os bits para direita
+                      00029         ;lrf -> rotaciona para esquerda
+                      00030         
+                      00031 
+0004   1683           00032         bsf             STATUS,RP0  ; seleciona o banco 1 RP0 (pag 31 doc)(ficou 01, pois setou o segund
                             o bit para 1)
-0005   30F0           00031         movlw   B'11110000' ; setando RA3-RA0 como saida e RA7-RA4 input (1 input 0 output)
+0005   30F0           00033         movlw   B'11110000' ; setando RA3-RA0 como saida e RA7-RA4 input (1 input 0 output)
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0006   0085           00032         movwf   TRISA           ; pega os bits anteriores e seta as portas como entrada ou saida
-                      00033         
-0007   1703           00034         bsf             STATUS,RP1      ; seleciona o banco 3
+0006   0085           00034         movwf   TRISA           ; pega os bits anteriores e seta as portas como entrada ou saida
+                      00035         
+0007   1703           00036         bsf             STATUS,RP1      ; seleciona o banco 3
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0008   0188           00035         clrf    ANSEL           ; configura todas portas e pinos como digital I/0
-                      00036         
-0009                  00037 Main:
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  2
+0008   0188           00037         clrf    ANSEL           ; configura todas portas e pinos como digital I/0
+                      00038         
+0009                  00039 Main:
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0009   2???           00038         call RotinaInicializacao
-000A   2???           00039         goto Main
-                      00040         
-000B                  00041 RotinaInicializacao:
-000B   1303           00042         bcf             STATUS,RP1      
-000C   1283           00043         bcf             STATUS,RP0      ; os dois comandos acima resetam os bits seletores de banco, ou 
+0009   2???           00040         call    RotinaInicializacao
+000A   2???           00041         goto    Main
+                      00042         
+000B                  00043 RotinaInicializacao: 
+000B   1303           00044         bcf             STATUS,RP1      
+000C   1283           00045         bcf             STATUS,RP0      ; os dois comandos acima resetam os bits seletores de banco, ou 
                             seja fomos para 00(bank0)
-000D   300F           00044         movlw   0x0F            ; seleciona os pinos RA0-RA3 (1111)
-000E   0085           00045         movwf   PORTA           ; seta os pinos RA0-RA3 (acende os leds)
-000F   2???           00046         call    Delay_1s        ; call chama uma função com RETORNO
-                      00047         
-0010   01A0           00048         clrf    led_cnt ; led_cnt = 0
+000D   300F           00046         movlw   0x0F            ; seleciona os pinos RA0-RA3 (1111)
+000E   0085           00047         movwf   PORTA           ; seta os pinos RA0-RA3 (acende os leds)
+000F   2???           00048         call    Delay_1s        ; call chama uma função com RETORNO
                       00049         
-0011                  00050 LedCountLoop:
-                      00051         ;               PORTA   
-                      00052         ;00->   00000001
-                      00053         ;01->   00000010
-                      00054         ;10->   00000100
-                      00055         ;11->   00001000
-0011   0185           00056         clrf    PORTA           ; seta 0 para todas saidas (apaga os leds)
-                      00057         
-0012   3000           00058         movlw   .0                      ; colocando 0 no work, decimal a gente coloca '.' e o numero    
-0013   0220           00059         subwf   led_cnt, W      ; subwf -> substitui w de f onde f é ledcnt e o resultado ficara no mesm
+0010   01A0           00050         clrf    led_cnt ; led_cnt = 0
+                      00051         
+0011                  00052 LedCountLoop:
+                      00053         ;               PORTA   
+                      00054         ;00->   00000001
+                      00055         ;01->   00000010
+                      00056         ;10->   00000100
+                      00057         ;11->   00001000
+0011   0185           00058         clrf    PORTA           ; seta 0 para todas saidas (apaga os leds)
+                      00059         
+0012   3000           00060         movlw   .0                      ; colocando 0 no work, decimal a gente coloca '.' e o numero    
+0013   0220           00061         subwf   led_cnt, W      ; subwf -> substitui w de f onde f é ledcnt e o resultado ficara no mesm
                             o registrador de entrada (led_cnt) e w = 0
-0014   1903           00060         btfsc   STATUS, Z       ; se z=0 pula a proxima linha (z é se a subtração deu 0 ou nao)
-0015   1405           00061         bsf             PORTA,RA0       ; acendi o led 0
-                      00062         
-0016   3001           00063         movlw   .1
-0017   0220           00064         subwf   led_cnt, W
-0018   1903           00065         btfsc   STATUS, Z       
-0019   1485           00066         bsf             PORTA,RA1
-                      00067         
-001A   3002           00068         movlw   .2
-001B   0220           00069         subwf   led_cnt, W
-001C   1903           00070         btfsc   STATUS, Z       
-001D   1505           00071         bsf             PORTA,RA2
-                      00072         
-001E   3003           00073         movlw   .3
-001F   0220           00074         subwf   led_cnt, W
-0020   1903           00075         btfsc   STATUS, Z       
-0021   1585           00076         bsf             PORTA,RA3
-                      00077         
-0022   2???           00078         call    Delay_200ms
-0023   0AA0           00079         incf    led_cnt, F      ; incrementei o led_cnt (F significa q vai salvar no proprio led_cnt)
-                      00080         
-                      00081         ;verificar se o led_cnt é 4
-0024   3004           00082         movlw   .4
-0025   0220           00083         subwf   led_cnt, W  ; subtrai 4 de led_cnt e salva em w
-0026   1D03           00084         btfss   STATUS, Z       ;led_cnt == 4 ? z é 1 se a subtração foi zero
-0027   2???           00085         goto    LedCountLoop;se nao for executa aqu
-0028   0185           00086         clrf    PORTA           ;se for 4 executa aqui (ja fez toda rotina), apaga todos leds
-0029   0008           00087         return  
-                      00088                                 
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  3
+0014   1903           00062         btfsc   STATUS, Z       ; se z=0 pula a proxima linha (z é se a subtração deu 0 ou nao)
+0015   1405           00063         bsf             PORTA,RA0       ; acendi o led 0
+                      00064         
+0016   3001           00065         movlw   .1
+0017   0220           00066         subwf   led_cnt, W
+0018   1903           00067         btfsc   STATUS, Z       
+0019   1485           00068         bsf             PORTA,RA1
+                      00069         
+001A   3002           00070         movlw   .2
+001B   0220           00071         subwf   led_cnt, W
+001C   1903           00072         btfsc   STATUS, Z       
+001D   1505           00073         bsf             PORTA,RA2
+                      00074         
+001E   3003           00075         movlw   .3
+001F   0220           00076         subwf   led_cnt, W
+0020   1903           00077         btfsc   STATUS, Z       
+0021   1585           00078         bsf             PORTA,RA3
+                      00079         
+0022   2???           00080         call    Delay_200ms
+0023   0AA0           00081         incf    led_cnt, F      ; incrementei o led_cnt (F significa q vai salvar no proprio led_cnt)
+                      00082         
+                      00083         ;verificar se o led_cnt é 4
+0024   3004           00084         movlw   .4
+0025   0220           00085         subwf   led_cnt, W  ; subtrai 4 de led_cnt e salva em w
+0026   1D03           00086         btfss   STATUS, Z       ;led_cnt == 4 ? z é 1 se a subtração foi zero
+0027   2???           00087         goto    LedCountLoop;se nao for executa aqu
+0028   0185           00088         clrf    PORTA           ;se for 4 executa aqui (ja fez toda rotina), apaga todos leds
+0029   0008           00089         return  
+                      00090                                 
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-002A                  00089 Delay_1s                                        
-002A   0000           00090         nop
-002B   0008           00091         return
-                      00092         
-002C                  00093 Delay_200ms
-002C   0000           00094         nop
-002D   0008           00095         return 
-                      00096         
-                      00097         end     
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  4
+002A                  00091 Delay_1s:                                       
+002A   2???           00092         call    Delay_200ms
+002B   2???           00093         call    Delay_200ms
+002C   2???           00094         call    Delay_200ms
+002D   2???           00095         call    Delay_200ms
+002E   2???           00096         call    Delay_200ms
+002F   0008           00097         return
+                      00098         
+0030                  00099 Delay_1ms:
+0030   30F8           00100         movlw   .248 
+0031   00A1           00101         movwf   cnt_1
+                      00102 
+0032                  00103 Delay1:
+0032   0000           00104         nop
+0033   0BA1           00105         decfsz  cnt_1,  F       ;decrementando cnt_1 e F significa q salvou no proprio registrador de en
+                            trada (cnt_1)   
+0034   2???           00106         goto    Delay1
+0035   0008           00107         return 
+                      00108         
+0036                  00109 Delay_200ms:                    ;aqui eu chamo o delay de 1ms 200 vezes
+0036   30C8           00110         movlw   .200
+0037   00A2           00111         movwf   cnt_2
+                      00112 
+0038                  00113 Delay2:
+0038   2???           00114         call    Delay_1ms
+0039   0BA2           00115         decfsz  cnt_2,F         ;se chegar a zero pula a proxima linha
+003A   2???           00116         goto    Delay2
+003B   0008           00117         return
+                      00118         
+003C                  00119 Delay_10us:                             ;aqui gastamos 6 nops, cada um gasta 1us , o retorno 2us e o cal
+                            l do rdelay gastou 2us totalizando 10 us
+003C   0000           00120         nop
+003D   0000           00121         nop
+003E   0000           00122         nop
+003F   0000           00123         nop
+0040   0000           00124         nop
+0041   0000           00125         nop
+0042   0008           00126         return
+                      00127         
+                      00128         end     
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  4
 
 
 SYMBOL TABLE
@@ -190,7 +221,7 @@ BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  5
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  5
 
 
 SYMBOL TABLE
@@ -249,7 +280,7 @@ CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  6
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  6
 
 
 SYMBOL TABLE
@@ -271,8 +302,12 @@ DC2B0                             00000004
 DC2B1                             00000005
 D_A                               00000005
 D_NOT_A                           00000005
+Delay1                            00000032
+Delay2                            00000038
+Delay_10us                        0000003C
+Delay_1ms                         00000030
 Delay_1s                          0000002A
-Delay_200ms                       0000002C
+Delay_200ms                       00000036
 ECCPAS                            0000009C
 ECCPAS0                           00000004
 ECCPAS1                           00000005
@@ -304,16 +339,16 @@ I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
 INTCON                            0000000B
-INTE                              00000004
-INTEDG                            00000006
-INTF                              00000001
-IOCB                              00000096
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  7
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  7
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
 IOCB2                             00000002
@@ -363,16 +398,16 @@ OSFIF                             00000007
 OSTS                              00000003
 P                                 00000004
 P1M0                              00000006
-P1M1                              00000007
-PCL                               00000002
-PCLATH                            0000000A
-PCON                              0000008E
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  8
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  8
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
 PDC2                              00000002
@@ -422,16 +457,16 @@ RB4                               00000004
 RB5                               00000005
 RB6                               00000006
 RB7                               00000007
-RBIE                              00000003
-RBIF                              00000000
-RC0                               00000000
-RC1                               00000001
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE  9
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE  9
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
 RC2                               00000002
 RC3                               00000003
 RC4                               00000004
@@ -481,16 +516,16 @@ SPBRGH                            0000009A
 SPEN                              00000007
 SR0                               00000006
 SR1                               00000007
-SRCON                             00000185
-SREN                              00000005
-SSPADD                            00000093
-SSPBUF                            00000013
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE 10
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE 10
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
 SSPCON                            00000014
 SSPCON2                           00000091
 SSPEN                             00000005
@@ -540,16 +575,16 @@ TMR1IF                            00000000
 TMR1L                             0000000E
 TMR1ON                            00000000
 TMR2                              00000011
-TMR2IE                            00000001
-TMR2IF                            00000001
-TMR2ON                            00000002
-TOUTPS0                           00000003
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE 11
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
 TOUTPS1                           00000004
 TOUTPS2                           00000005
 TOUTPS3                           00000006
@@ -599,16 +634,16 @@ TUN0                              00000000
 TUN1                              00000001
 TUN2                              00000002
 TUN3                              00000003
-TUN4                              00000004
-TX8_9                             00000006
-TX9                               00000006
-TX9D                              00000000
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE 12
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
 TXD8                              00000000
 TXEN                              00000005
 TXIE                              00000004
@@ -658,16 +693,16 @@ _BOR4V_BOR40V                     00003FFF
 _BOREN_NSLEEP                     00003EFF
 _BOREN_OFF                        00003CFF
 _BOREN_ON                         00003FFF
-_BOREN_SBODEN                     00003DFF
-_BOR_NSLEEP                       00003EFF
-_BOR_OFF                          00003CFF
-_BOR_ON                           00003FFF
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE 13
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_BOREN_SBODEN                     00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
 _BOR_SBODEN                       00003DFF
 _CONFIG1                          00002007
 _CONFIG2                          00002008
@@ -717,22 +752,24 @@ _WDT_OFF                          00003FF7
 _WDT_ON                           00003FFF
 _WRT_1FOURTH                      00003BFF
 _WRT_256                          00003DFF
-_WRT_HALF                         000039FF
-_WRT_OFF                          00003FFF
-_XT_OSC                           00003FF9
-__16F887                          00000001
-MPASM  5.51                          MAIN.ASM   2-6-2020  11:59:11         PAGE 14
+MPASM  5.51                          MAIN.ASM   2-7-2020  9:41:20         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-__DEBUG                           1
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+cnt_1                             00000021
+cnt_2                             00000022
 led_cnt                           00000020
 restfile                          00000004
+teste                             PORTA,RA0
 
 Errors   :     0
-Warnings :     4 reported,     0 suppressed
+Warnings :     2 reported,     0 suppressed
 Messages :     2 reported,     0 suppressed
 
 
