@@ -1,4 +1,14 @@
-Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 2 : Found directive in column 1. (list)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 14 : Found label after column 1. (restfile)
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 34 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 3 : Found directive in column 1. (list)
+Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 5 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 6 : Found directive in column 1. (__CONFIG)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 20 : Found label after column 1. (TMR0_50MS)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 21 : Found label after column 1. (LED_RED)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 22 : Found label after column 1. (LED_YELLOW)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 23 : Found label after column 1. (LED_GREEN)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 24 : Found label after column 1. (LED_BLUE)
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 72 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 75 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 76 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 88 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 90 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 125 : Using default destination of 1 (file).
