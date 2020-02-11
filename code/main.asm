@@ -18,9 +18,8 @@ __CONFIG	_CONFIG2, 0x3ffF
 		move
 	endc
 	
-	cblock	0x5F
-		move_pointer	;ponteiro para memoria de movimentos
-	endc
+
+	MOVE_BASE_ADDR	EQU	0X5F
 	TMR0_50MS	EQU		.61
 	LED_RED		EQU		B'00000001'
 	LED_YELLOW	EQU		B'00000010'
@@ -100,11 +99,15 @@ Start:
 	bsf		INTCON, T0IE	;habilita tmrp interrupt
 	bsf		INTCON, GIE		;habiilita interrupcoes
 	call	RotinaInicializacao
+	movlw	MOVE_BASE_ADDR
+	movwf	FSR	
+	bcf		STATUS,IRP
 
 Main:
 
 	btfsc	button		;se o botao de start for pressionado
 	goto	Main
+
 	movf	TMR0,W
 	movwf	move		;COPY TMR0 para move
 	clrf 	sequency
@@ -122,6 +125,7 @@ LevelHard:
 	
 Main_Loop:
 	call	SorteiaNumeros
+	call	StoreNumber	;salva no ponteiro
 	goto	Main
 
 SorteiaNumeros:
@@ -147,6 +151,12 @@ SorteiaNumeros:
 	subwf	move,W
 	btfss	STATUS,Z
 	retlw	LED_BLUE
+
+StoreNumber:
+	movwf	INDF
+	incf	FSR	
+	return
+	
 
 RotinaInicializacao: 
 	bcf		STATUS,RP1	
