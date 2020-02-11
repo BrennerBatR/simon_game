@@ -16,9 +16,14 @@ __CONFIG	_CONFIG2, 0x3ffF
 		level	;1: hard , 0: easy
 		sequency
 		move
+		last_move
+		last_input
+		timeout		;0 = NÃO ocorreu timeout 
+		current_move
 	endc
 	
-
+	HARD_TIMEOUT	EQU	.3	; 3 segundos
+	EASY_TIMEOUT	EQU	.5	; 5 segundos
 	MOVE_BASE_ADDR	EQU	0X5F
 	TMR0_50MS	EQU		.61
 	LED_RED		EQU		B'00000001'
@@ -76,7 +81,7 @@ Start:
 	
 	bsf		STATUS,RP1	; seleciona o banco 3
 	clrf	ANSEL		; configura todas portas e pinos como digital I/0
-		clrf	ANSELH		;PORTB	pins as digital	I/O
+	clrf	ANSELH		;PORTB	pins as digital	I/O
 						
 	;----- TMR0 config ------
 	;queremos que a fonte seja o clk interno
@@ -102,6 +107,8 @@ Start:
 	movlw	MOVE_BASE_ADDR
 	movwf	FSR	
 	bcf		STATUS,IRP
+	clrf	last_move
+	clrf	last_input
 
 Main:
 
@@ -155,7 +162,53 @@ SorteiaNumeros:
 StoreNumber:
 	movwf	INDF
 	incf	FSR	
+	incf	last_move,F
 	return
+	
+EntradaMovimento:
+	bcf		STATUS,RP0
+	bcf		STATUS,RP1	;bank 0
+	clrf	last_input
+	movlw	MOVE_BASE_ADDR
+	movwf	FSR			;FSR apontando para o inciio da memoria
+	
+	
+InputLoop
+	movf	PORTD, W
+	andlw	0x0F		;limpajdo de <7:4>
+	subwf	0x00		;verificando se algum botao foi pressionao
+	btfss	STATUS,Z	
+	goto	ButtonNotPressed
+	goto	ButtonPressed
+	
+ButtonNotPressed:
+	btfss	timeout,0	;Ocorreu timeou ?
+	goto	InputLoop	;nao
+	return				;sim
+	
+ButtonPressed:
+	movwf	current_move
+	call	CompareInput
+	sublw	.0
+	btfsc	STATUS,Z		;botao correto pressionado ? 
+	return					;nao
+	
+	incf	last_input,F 	;sim
+	incf	FSR,F	
+	movf	last_input
+	subwf	last_move,W
+	btfsc	STATUS,C		;  	last_input > last_move ?
+	return	.0
+	goto	InputLoop
+	
+		
+CompareInput:
+	movlw	current_move
+	subwf	INDF,W
+	btfss	STATUS,Z
+	retlw	.0		;bortao errado
+	retlw	current_move
+	
 	
 
 RotinaInicializacao: 

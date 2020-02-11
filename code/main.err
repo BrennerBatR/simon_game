@@ -1,16 +1,21 @@
 Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 3 : Found directive in column 1. (list)
 Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 5 : Found directive in column 1. (__CONFIG)
 Warning[205] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 6 : Found directive in column 1. (__CONFIG)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 22 : Found label after column 1. (MOVE_BASE_ADDR)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 23 : Found label after column 1. (TMR0_50MS)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 24 : Found label after column 1. (LED_RED)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 25 : Found label after column 1. (LED_YELLOW)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 26 : Found label after column 1. (LED_GREEN)
-Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 27 : Found label after column 1. (LED_BLUE)
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 75 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 78 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 79 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 133 : Using default destination of 1 (file).
-Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 157 : Using default destination of 1 (file).
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 25 : Found label after column 1. (HARD_TIMEOUT)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 26 : Found label after column 1. (EASY_TIMEOUT)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 27 : Found label after column 1. (MOVE_BASE_ADDR)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 28 : Found label after column 1. (TMR0_50MS)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 29 : Found label after column 1. (LED_RED)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 30 : Found label after column 1. (LED_YELLOW)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 31 : Found label after column 1. (LED_GREEN)
+Warning[207] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 32 : Found label after column 1. (LED_BLUE)
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 80 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 83 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 84 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 96 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 98 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 140 : Using default destination of 1 (file).
+Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 164 : Using default destination of 1 (file).
+Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 179 : Using default destination of 1 (file).
+Message[305] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 198 : Using default destination of 1 (file).
+Warning[211] C:\USERS\ALUNO\DESKTOP\PORTABLEGIT\SRC\SIMON_GAME\CODE\MAIN.ASM 201 : Extraneous arguments on the line.
